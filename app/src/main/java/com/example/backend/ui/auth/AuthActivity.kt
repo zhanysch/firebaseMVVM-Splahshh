@@ -13,13 +13,15 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_auth.*
 import java.util.concurrent.TimeUnit
 
-class AuthActivity : AppCompatActivity() {
+class AuthActivity : BaseAuthActivity() {
 
     private val viewModel by viewModels<AuthViewModel>()
 
     private lateinit var auth: FirebaseAuth
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     private var storedVerificationId : String?  = ""
+
+    override fun getResId()= R.layout.activity_auth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
