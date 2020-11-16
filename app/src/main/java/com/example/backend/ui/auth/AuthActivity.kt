@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit
 
 class AuthActivity : BaseAuthActivity() {
 
-    private val viewModel by viewModels<AuthViewModel>()
 
 
     override fun getResId()= R.layout.activity_auth

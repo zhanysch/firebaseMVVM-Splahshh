@@ -3,21 +3,26 @@
     package="com.example.backend">
 
     <application
+        android:name=".FirebaseApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Backend">
-        <activity android:name=".ui.main.DetailActivity"></activity>
-        <activity android:name=".ui.auth.AuthActivity"></activity>
-        <activity android:name=".ui.main.MainActivity">
+        android:theme="@style/Theme.Backend"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ui.splah.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.main.DetailActivity" />
+        <activity android:name=".ui.auth.AuthActivity">
+
+        </activity>
+        <activity android:name=".ui.main.MainActivity"></activity>
     </application>
 
 </manifest>

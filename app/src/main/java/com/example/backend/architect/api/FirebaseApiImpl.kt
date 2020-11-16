@@ -1,4 +1,4 @@
-package com.example.backend.api
+package com.example.backend.architect.api
 
 import androidx.lifecycle.MutableLiveData
 import com.example.backend.model.NewsItem
@@ -20,10 +20,11 @@ class FirebaseApiImpl: FirebaseApi {
         val data = MutableLiveData<ArrayList<NewsItem>>()
         val database = Firebase.database
         val ref = database.getReferenceFromUrl("https://first-backend-firebase-2fbe5.firebaseio.com/")
-        val list : ArrayList<NewsItem>?  = arrayListOf()
+
 
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                val list : ArrayList<NewsItem>?  = arrayListOf()
                 for (postSnapshot in snapshot.children){
                     val point = postSnapshot.getValue(NewsItem:: class.java)
                     point?.let { list?.add(it) }

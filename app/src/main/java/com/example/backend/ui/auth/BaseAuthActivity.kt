@@ -5,7 +5,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseException
-import com.google.firebase.auth.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthOptions
+import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.util.concurrent.TimeUnit
@@ -25,6 +29,7 @@ abstract class BaseAuthActivity: AppCompatActivity(){
 
         auth = Firebase.auth
         setupCallback()
+
     }
 
 
@@ -38,7 +43,10 @@ abstract class BaseAuthActivity: AppCompatActivity(){
                 Toast.makeText(applicationContext, "onVerificationFailed", Toast.LENGTH_LONG).show()
             }
 
-            override fun onCodeSent(verificationId: String, p1: PhoneAuthProvider.ForceResendingToken) {
+            override fun onCodeSent(
+                verificationId: String,
+                p1: PhoneAuthProvider.ForceResendingToken
+            ) {
                 super.onCodeSent(verificationId, p1)
                 storedVerificationId = verificationId
             }
@@ -66,6 +74,16 @@ abstract class BaseAuthActivity: AppCompatActivity(){
                         Log.d("TAG", "signInWithCredential:success")
 
                         val user = task.result?.user
+                        user?.getIdToken(true)?.addOnCompleteListener {
+                            if (it.isSuccessful) {
+                                val idToken: String? = it.result?.token
+                                Log.d("fdsfsd", "dgdgd")
+                                // Send token to your backend via HTTPS
+                                // ...
+                            } else {
+                                // Handle error -> task.getException();
+                            }
+                        }
                         // ...
                     } else {
                         // Sign in failed, display a message and update the UI

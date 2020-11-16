@@ -1,16 +1,19 @@
-package com.example.backend.repository
+package com.example.backend.architect.repository
 
 
 import androidx.lifecycle.MutableLiveData
-import com.example.backend.api.FirebaseApiImpl
+import com.example.backend.architect.api.FirebaseApi
 import com.example.backend.model.NewsItem
 
 interface FirebaseRepository {
     fun loadData() : MutableLiveData<ArrayList<NewsItem>>
 }
 
-class FirebaseRepositoryImpl: FirebaseRepository {
-    private val network = FirebaseApiImpl()
+class FirebaseRepositoryImpl(private val network : FirebaseApi): FirebaseRepository {
+
+    //(private val network : FirebaseApi)
+    // конструктор для того чтоб связать из class Modules , FirebaseRepos c FirebaseApi
+
 
     override fun loadData() : MutableLiveData<ArrayList<NewsItem>> {
         val data = network.loadData()
