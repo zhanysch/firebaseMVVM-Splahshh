@@ -16,35 +16,27 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        setupViewModel()
+        viewModel.auth()
 
 
+    }
 
+    private fun setupViewModel() {
+        viewModel.isAuthUser.observe(this, {
+            if (it) openMain()
+            else openAuth()
+        })
+    }
 
-        val mUser = FirebaseAuth.getInstance().currentUser
-        if (mUser== null) {
-            startActivity(Intent(this, AuthActivity:: class.java))
-        }
-        else{
-            loadToken(mUser)
-        }
-
+    private fun openMain(){
+        startActivity(Intent(this,MainActivity::class.java))
+    }
+    private fun openAuth(){
+        startActivity(Intent(this,AuthActivity::class.java))
     }
 
 
 
-
-    private fun loadToken(mUser: FirebaseUser) {
-        mUser.getIdToken(true)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val idToken = task.result!!.token
-                        startActivity(Intent(this, MainActivity:: class.java))
-                        // Send token to your backend via HTTPS
-                        // ...
-                    } else {
-                        startActivity(Intent(this, AuthActivity:: class.java))
-                    }
-                }
-    }
 
 }

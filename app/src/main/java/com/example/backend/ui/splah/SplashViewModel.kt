@@ -11,30 +11,26 @@ import com.google.firebase.auth.FirebaseUser
 
 class SplashViewModel:ViewModel() {
 
-  /*  val user = MutableLiveData<Boolean>()
-
-    fun verfy(){
+    val isAuthUser = MutableLiveData<Boolean>()
+   fun auth(){
         val mUser = FirebaseAuth.getInstance().currentUser
         if (mUser== null) {
-            startActivity(Intent(this, AuthActivity:: class.java))
+            isAuthUser.postValue(false)
         }
         else{
             loadToken(mUser)
         }
-        return user.postValue(user)
     }
-}
+
     private fun loadToken(mUser: FirebaseUser) {
         mUser.getIdToken(true)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        val idToken = task.result!!.token
-                        startActivity(Intent(this, MainActivity:: class.java))
-                        // Send token to your backend via HTTPS
-                        // ...
+                        isAuthUser.postValue(true)
                     } else {
-                        startActivity(Intent(this, AuthActivity:: class.java))
+                        isAuthUser.postValue(false)
                     }
-                }*/
+                }
+    }
 
 }
